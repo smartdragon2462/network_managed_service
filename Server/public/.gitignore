@@ -1,0 +1,11 @@
+!.gitignore
+!placeholder
+!admin.jpg
+thumb/*
+avatar/*
+real_image/*
+product/image/*
+product/thumb/*
+brand/*
+video/*
+!video/placeholder

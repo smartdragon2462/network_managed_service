@@ -1,0 +1,149 @@
+.user-manage {
+    width: 100%;
+}
+
+.user-count-card {
+    margin-top: 10px;
+}
+
+.fuse-card {
+    background: currentColor !important;
+    border-color: transparent !important;
+}
+
+.card-text {
+    text-align: center;
+    color: beige
+}
+
+.first-text {
+    border-bottom: 1px solid beige;
+}
+ 
+.user-manage {
+    margin-top: 12px;
+    width: 100%;
+}
+
+.user-manage-header {
+    display: flex;
+}
+
+.user-manage button {
+    margin-left: 15px;
+}
+
+.user-manage-body {
+    margin: 2%;
+}
+
+.user-list {
+    margin: 15px;
+    display: flex;
+}
+
+.search-wrapper {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 28px;
+    float: left;
+    overflow: hidden;
+    border: 0.5px solid #039be5;
+    margin-left: 2%;
+
+    .search {
+        width: 100%;
+        height: 48px;
+        line-height: 48px;
+        padding: 0 18px;
+
+        input {
+            width: 100%;
+            height: 48px;
+            min-height: 48px;
+            max-height: 48px;
+            padding: 0 16px;
+            border: none;
+            outline: none;
+        }
+    }
+}
+
+.sidebar {
+
+    &:not(.locked-open) {
+        background: white;
+    }
+
+    .header {
+        border-bottom: 0.3px solid;
+    }
+}
+
+@import "src/@fuse/scss/fuse";
+
+app-user-list {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+
+    mat-table {
+        width: 100%;
+        background: transparent;
+        box-shadow: none;
+
+        mat-column-checkbox {
+            flex: 0 1 64px;
+            padding-left: 18px;
+        }
+
+        mat-column-avatar {
+            flex: 0 1 64px;
+        }
+
+        mat-column-buttons {
+            flex: 0 1 80px;
+        }
+
+        mat-row {
+            position: relative;
+            cursor: pointer;
+            padding: 8px;
+
+            mat-cell {
+                min-width: 0;
+
+                &.mat-column-detail-button {
+                    flex: 0 1 auto;
+                    padding: 0 24px 0 0;
+
+                    @include media-breakpoint('gt-md') {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#add-contact-button {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    padding: 0;
+    z-index: 99;
+
+    @include media-breakpoint('xs') {
+        position: sticky;
+        top: calc(100vh - 120px);
+        bottom: auto;
+    }
+}
+
+.side-bar {
+    fuse-sidebar {
+        border-radius: 15px;
+        box-shadow: none;
+        background-color: white !important;
+    }
+}

@@ -1,0 +1,24 @@
+{
+
+    "development": {
+        "host": "127.0.0.1",
+        "database": "storyfly",
+        "username": "root",
+        "password": "",
+        "dialect": "mysql"
+    },
+    "production": {
+        "host": "127.0.0.1",
+        "database": "storyfly",
+        "username": "root",
+        "password": "",
+        "dialect": "mysql"
+    },
+    "danil": {
+        "host": "127.0.0.1",
+        "database": "storyfly",
+        "username": "root",
+        "password": "",
+        "dialect": "mysql"
+    }
+}

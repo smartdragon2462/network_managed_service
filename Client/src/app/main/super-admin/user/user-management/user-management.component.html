@@ -1,0 +1,180 @@
+<div class="user-manage">
+    <div fxLayout="row" class="user-count-card">
+        <div fxLayout="column" fxFlex="25">
+            <div class="fuse-card m-auto">
+                <div class="p-16 m-auto first-text">
+                    <div class="h3 card-text">Support Admin</div>
+                </div>
+                <div class="p-16 pt-0 card-text line-height-1.75 text">{{standardCount}}</div>
+            </div>
+        </div>
+        <div fxLayout="column" fxFlex="25">
+            <div class="fuse-card m-auto">
+                <div class="p-16 m-auto first-text">
+                    <div class="h3 card-text">Client</div>
+                </div>
+                <div class="p-16 pt-0 card-text line-height-1.75">{{proCount}}
+                </div>
+            </div>
+        </div>
+        <div fxLayout="column" fxFlex="25">
+            <div class="fuse-card m-auto">
+                <div class="p-16 m-auto first-text">
+                    <div class="h3 card-text">User</div>
+                </div>
+
+                <div class="p-16 pt-0 card-text line-height-1.75">{{agencyCount}}
+                </div>
+            </div>
+        </div>
+        <div fxLayout="column" fxFlex="25">
+            <div class="fuse-card m-auto">
+                <div class="p-16 m-auto first-text">
+                    <div class="h3 card-text">AA</div>
+                </div>
+
+                <div class="p-16 pt-0 card-text line-height-1.75">{{resellerCount}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-manage-body row">
+        <div class="user-manage-header" fxLayoutAlign="start center">
+            <div class="search-wrapper mt-16 mt-sm-0">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input placeholder="Search Users...">
+                </div>
+            </div>
+            <div class="user-action">
+                <button mat-raised-button color="accent" [routerLink]="['/super-admin/users/create-user']">Create User
+                    +</button>
+                <button mat-raised-button color="warn" [disabled]="deleteDisalble">Delete User</button>
+            </div>
+        </div>
+
+
+        <div class="user-list">
+            <div class="side-bar" fxFlex="20">
+                <fuse-sidebar class="sidebar" name="contacts-main-sidebar" position="left" lockedOpen="gt-sm">
+
+                    <!-- SIDEBAR CONTENT -->
+                    <div class="content" fusePerfectScrollbar>
+                        <div class="sidebar-content">
+
+                            <div class="card">
+
+                                <!-- SIDEBAR HEADER -->
+                                <div class="header p-24" fxLayout="row" fxLayoutAlign="start center">
+
+                                    <!-- USER -->
+                                    <span class="h5">Filter By User Role</span>
+                                    <!-- / USER -->
+
+                                </div>
+                                <!-- / SIDEBAR HEADER -->
+
+                                <!-- SIDEBAR CONTENT -->
+                                <div class="content py-16" fusePerfectScrollbar>
+
+                                    <div class="nav material2">
+
+                                        <div class="nav-item" aria-label="inbox">
+                                            <a class="nav-link" matRipple (click)="changeFilter('all')"
+                                                [ngClass]="{'active accent':filterBy ==='all'}">
+                                                <span class="title">All Users</span>
+                                            </a>
+                                        </div>
+
+                                        <div class="nav-item" aria-label="frequently contacted"
+                                            (click)="changeFilter('standard')">
+                                            <a class="nav-link" matRipple
+                                                [ngClass]="{'active accent':filterBy ==='standard'}">
+                                                <div class="title">Standard Users</div>
+                                            </a>
+                                        </div>
+
+                                        <div class="nav-item" aria-label="starred" (click)="changeFilter('pro')">
+                                            <a class="nav-link" matRipple
+                                                [ngClass]="{'active accent':filterBy ==='pro'}">
+                                                <div class="title">Pro Users</div>
+                                            </a>
+                                        </div>
+
+                                        <div class="nav-item" aria-label="starred" (click)="changeFilter('agency')">
+                                            <a class="nav-link" matRipple
+                                                [ngClass]="{'active accent':filterBy ==='agency'}">
+                                                <div class="title">Agency Users</div>
+                                            </a>
+                                        </div>
+
+                                        <div class="nav-item" aria-label="starred" (click)="changeFilter('reseller')">
+                                            <a class="nav-link" matRipple
+                                                [ngClass]="{'active accent':filterBy ==='reseller'}">
+                                                <div class="title">Resellers</div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- / SIDEBAR CONTENT -->
+                </fuse-sidebar>
+            </div>
+
+            <div class="user-table" fxFlex="80">
+                <mat-table #table [dataSource]="filterUsers">
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="checkbox">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <mat-checkbox [checked]="allRowsSelected" (change)="onCheckboxChangeFn($event, element)">
+                            </mat-checkbox>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}}</mat-cell>
+                    </ng-container>
+
+                    <!-- Email Column -->
+                    <ng-container matColumnDef="email">
+                        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Role Column -->
+                    <ng-container matColumnDef="role">
+                        <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+                    </ng-container>
+
+                    <!-- creat At -->
+                    <ng-container matColumnDef="createdAt">
+                        <mat-header-cell *matHeaderCellDef> Create At </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.createdAt}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="buttons">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element"> </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                </mat-table>
+            </div>
+
+
+        </div>
+    </div>
+</div>

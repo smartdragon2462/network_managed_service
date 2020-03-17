@@ -1,0 +1,202 @@
+<div class="story-complete">
+    <button mat-raised-button color="accent" (click)="newStory();">
+        <span>New Story</span>
+    </button>
+    <button mat-raised-button color="warn" (click)="completeStory();">
+        <span>Complete Story</span>
+    </button>
+</div>
+<div #stroyImage class="story">
+    <canvas id="canvas" height="650" width="360"></canvas>
+</div>
+<div class="creat-story">
+    <mat-tab-group dynamicHeight>
+        <mat-tab label="Background">
+            <div class="background-action">
+                <button (click)="openBackground()" mat-raised-button class="accent add-background">
+                    <span>Library Image</span>
+                </button>
+                <button (click)="openYourImage()" mat-raised-button class="accent your-background">
+                    <span>Your mage</span>
+                </button>
+                <button (click)="file.click()" mat-raised-button class="accent upload-background">
+                    <span>Upload Image</span>
+                </button>
+                <button (click)="setColor()" mat-raised-button class="accent set-color">
+                    <span>Set Color</span>
+                </button>
+                <input type="file" #file (change)="fileChange($event)" class="form-control" accept="image/*"
+                    style="display: none;">
+            </div>
+            <div *ngIf="back1" class="background-preview">
+                <div class="search-wrapper mt-16 mt-sm-0">
+                    <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon>search</mat-icon>
+                        <input placeholder="Search Users..." (keyup.enter)="searchBackByText($event)">
+                    </div>
+                </div>
+                <div class="background-images" fxLayout="row wrap">
+                    <div class="library-images" fxLayout="column" (click)="selectBackImg(item)"
+                        [ngClass]="{'highlight': selectedBackIndex === item.id}" fxFlex="25"
+                        *ngFor="let item of libraryBackImages">
+                        <img class="library-image" src="{{item.url}}">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="back4" class="back-color-preview">
+                <color-sketch (onChange)="handleChange($event)"></color-sketch>
+            </div>
+        </mat-tab>
+        <mat-tab label="Image Block">
+            <div class="Iblock-action">
+                <button (click)="openIblock()" mat-raised-button class="accent add-Iblock">
+                    <span>Library Image</span>
+                </button>
+                <button (click)="openYourIblock()" mat-raised-button class="accent your-Iblock">
+                    <span>Your mage</span>
+                </button>
+                <button (click)="Iblock.click()" mat-raised-button class="accent upload-Iblock">
+                    <span>Upload Image</span>
+                </button>
+                <input type="file" #Iblock (change)="IblockChange($event)" class="form-control" accept="image/*"
+                    style="display: none;">
+            </div>
+            <div *ngIf="Iblock1" class="Iblock-preview">
+                <div class="search-wrapper mt-16 mt-sm-0">
+                    <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon>search</mat-icon>
+                        <input placeholder="Search Users..." (keyup.enter)="searchIblockByText($event)">
+                    </div>
+                </div>
+                <div class="Iblock-images" fxLayout="row wrap">
+                    <div class="library-images" fxLayout="column" (click)="selectIblockImg(item)"
+                        [ngClass]="{'highlight': selectedIblockIndex === item.id}" fxFlex="25"
+                        *ngFor="let item of libraryIblockImages">
+                        <img class="library-image" src="{{item.url}}">
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Add Stickers">
+            <div class="sticker-action" fxLayout="row wrap">
+                <div class="sticker" [ngStyle]="sticker1Style" (click)="selectBeach()">
+                    <img src="{{assetsUrl}}/stickers/ui/beach.svg">
+                </div>
+                <div class="sticker" [ngStyle]="sticker2Style" (click)="selectCloud()">
+                    <img src="{{assetsUrl}}/stickers/ui/clouds.svg">
+                </div>
+                <div class="sticker" [ngStyle]="sticker3Style" (click)="selectDoodle()">
+                    <img src="{{assetsUrl}}/stickers/ui/doodles.svg">
+                </div>
+                <div class="sticker" [ngStyle]="sticker4Style" (click)="selectEmotion()">
+                    <img src="{{assetsUrl}}/stickers/ui/emoticon.svg">
+                </div>
+                <div class="sticker" [ngStyle]="sticker5Style" (click)="selectLandmark()">
+                    <img src="{{assetsUrl}}/stickers/ui/landmark.svg">
+                </div>
+                <div class="sticker" [ngStyle]="sticker6Style" (click)="selectbubble()">
+                    <img src="{{assetsUrl}}/stickers/ui/speech-bubble.svg">
+                </div>
+                <div class="sticker" [ngStyle]="sticker7Style" (click)="selectStar()">
+                    <img src="{{assetsUrl}}/stickers/ui/star.svg">
+                </div>
+                <div class="sticker" [ngStyle]="sticker8Style" (click)="selectTrans()">
+                    <img src="{{assetsUrl}}/stickers/ui/transportation.svg">
+                </div>
+            </div>
+            <div *ngIf="sticker1" class="sticker-preview">
+                <div class="sticker-images" fxLayout="row wrap">
+                    <div class="library-images" fxLayout="column" (click)="selectBeachImg(i)" fxFlex="12"
+                        *ngFor="let item of array(beachCount); let i = index;">
+                        <img class="library-image" [src]="getBeachUrl(i)">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="sticker2" class="sticker-preview">
+                <div class="sticker-images" fxLayout="row wrap">
+                    <div class="library-images" fxLayout="column" (click)="selectCloudImg(i)" fxFlex="16"
+                        *ngFor="let item of array(cloudCount); let i = index;">
+                        <img class="cloud-image" [src]="getCloudUrl(i)">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="sticker3" class="sticker-preview">
+                <div class="sticker-images" fxLayout="row wrap">
+                    <div class="library-images" fxLayout="column" (click)="selectDoodleImg(i)" fxFlex="12"
+                        *ngFor="let item of array(doodleCount); let i = index;">
+                        <img class="library-image" [src]="getDoodleUrl(i)">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="sticker4" class="sticker-preview">
+                <div class="sticker-images" fxLayout="row wrap">
+                    <div class="library-images" fxLayout="column" (click)="selectEmotionImg(item)" fxFlex="12"
+                        *ngFor="let item of emoticonList; let i = index;">
+                        <img class="library-image" [src]="getEmotionUrl(item)">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="sticker5" class="sticker-preview">
+                <div class="sticker-images" fxLayout="row wrap">
+                    <div class="library-images" fxLayout="column" (click)="selectLandImg(i)" fxFlex="12"
+                        *ngFor="let item of array(landmarkCount); let i = index;">
+                        <img class="library-image" [src]="getLandUrl(i)">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="sticker6" class="sticker-preview">
+                <div class="sticker-images" fxLayout="row wrap">
+                    <div class="library-images" fxLayout="column" (click)="selectBubbleImg(i)" fxFlex="12"
+                        *ngFor="let item of array(bubblCount); let i = index;">
+                        <img class="library-image" [src]="getBubbleUrl(i)">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="sticker7" class="sticker-preview">
+                <div class="sticker-images" fxLayout="row wrap">
+                    <div class="library-images" fxLayout="column" (click)="selectStarImg(i)" fxFlex="16"
+                        *ngFor="let item of array(starCount); let i = index;">
+                        <img class="star-image" [src]="getStarUrl(i)">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="sticker8" class="sticker-preview">
+                <div class="sticker-images" fxLayout="row wrap">
+                    <div class="library-images" fxLayout="column" (click)="selectTransImg(i)" fxFlex="12"
+                        *ngFor="let item of array(transCount); let i = index;">
+                        <img class="library-image" [src]="getTransUrl(i)">
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Add Watermark">
+
+        </mat-tab>
+        <mat-tab label="Text Block">
+            <div class="text-block">
+                <div class="text-font">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Font Family</mat-label>
+                        <mat-select (selectionChange)="onfontChange($event)" matNativeControl required>
+                            <mat-option [value]="'times'">Times New Roman</mat-option>
+                            <mat-option [value]="'Pacifico'">Pacifico</mat-option>
+                            <mat-option [value]="'VT323'">VT323</mat-option>
+                            <mat-option [value]="'Quicksand'">Quicksand</mat-option>
+                            <mat-option [value]="'Inconsolata'">Inconsolata</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <button (click)="addText()" mat-raised-button class="accent add-Text">
+                    <span>Add Text</span>
+                </button>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
